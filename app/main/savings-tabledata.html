@@ -11,34 +11,26 @@
             <input type="checkbox" ng-model="filter['savings']"> Savings
         </label>
     </div>  -->
-<div class="col-md-8">
+<div class="bit-75">
     <div ng-repeat="account in filtered=(accounts | filter:filterByCategory)">
         <div class="panel panel-default">
             <div class="panel-body">
                 <span class="label label-primary" ng-show="account.type == 'checking'">Checking</span>
                 <span class="label label-warning" ng-show="account.type == 'savings'">Savings</span>
-                <div>
-                    Type: {{account.type}}
-                </div>
-                <div>
+                <div ng-show="account.type == 'checking'">
+                    amount: {{account.amount}}
                     BIC: {{account.bic}}
-                </div>
-                <div>
                     IBAN: {{account.iban}}
                 </div>
-                <div>
-                    Price: {{account.price}}
-                </div>
-                <div>
+                <div ng-show="account.type == 'savings'">
+                    amount: {{account.amount}}
                     Date: {{account.date}}
-                </div>
-                <div>
                     Maturity: {{account.maturity}}
                 </div>
             </div>
         </div>
     </div>
-    <button type="button" class="btn btn-primary btn-lg btn-block" data-toggle="modal" data-target="#myModal">New Account</button>    
+    <button type="button" class="btn btn-primary btn-lg btn-block" data-toggle="modal" data-target="#myModal">New Account</button>
 </div>
 
 <!-- Modal -->
@@ -53,27 +45,39 @@
         <form>
             <div class="form-group">
                 <label for="type">Type</label>
-                <input type="text" class="form-control" id="type" placeholder="Enter Type" ng-model="type">
+                <select name="singleSelect" ng-model="type"> 
+                    <option value="checking">Checking</option> 
+                    <option value="savings">Savings</option> 
+                </select>
+                <br>
             </div>
-            <div class="form-group">
-                <label for="bic">BIC</label>
-                <input type="text" class="form-control" id="bic" placeholder="Enter BIC" ng-model="bic">
+            <div ng-show="type === 'checking'">
+                <div class="form-group">
+                    <label for="Amount">Amount</label>
+                    <input type="text" class="form-control" id="Amount" placeholder="Enter Amount" ng-model="amount">
+                </div>
+                <div class="form-group">
+                    <label for="bic">BIC</label>
+                    <input type="text" class="form-control" id="bic" placeholder="Enter BIC" ng-model="bic">
+                </div>
+                <div class="form-group">
+                    <label for="iban">IBAN</label>
+                    <input type="text" class="form-control" id="iban" placeholder="Enter IBAN" ng-model="iban">
+                </div>
             </div>
-            <div class="form-group">
-                <label for="iban">IBAN</label>
-                <input type="text" class="form-control" id="iban" placeholder="Enter IBAN" ng-model="iban">
-            </div>
-            <div class="form-group">
-                <label for="price">Price</label>
-                <input type="text" class="form-control" id="price" placeholder="Enter Price" ng-model="price">
-            </div>
-            <div class="form-group">
-                <label for="date">Date</label>
-                <input type="text" class="form-control" id="date" placeholder="Enter Date" ng-model="date">
-            </div>
-            <div class="form-group">
-                <label for="maturity">Maturity</label>
-                <input type="text" class="form-control" id="maturity" placeholder="Enter Maturity" ng-model="maturity">
+            <div ng-show="type === 'savings'">
+                <div class="form-group">
+                    <label for="Amount">Amount</label>
+                    <input type="text" class="form-control" id="Amount" placeholder="Enter Amount" ng-model="amount">
+                </div>
+                <div class="form-group">
+                    <label for="date">Date</label>
+                    <input type="text" class="form-control" id="date" placeholder="Enter Date" ng-model="date">
+                </div>
+                <div class="form-group">
+                    <label for="maturity">Maturity</label>
+                    <input type="text" class="form-control" id="maturity" placeholder="Enter Maturity" ng-model="maturity">
+                </div>
             </div>
         </form>
       </div>
